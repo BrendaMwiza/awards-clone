@@ -18,21 +18,6 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
 
-    def following(self,follower):
-        return self.following.add(follower)
-
-    def follows(self,checkuser):
-        return checkuser in self.following.all()
-
-    def follow_numb(self):
-        if self.following.count():
-            return self.following.count()
-        else:
-            return 0
-
-    def unfollowing(self,unfollow):
-        return self.following.remove(unfollow)
-
     @classmethod
     def search_profile(cls,profile_item):
         pro = cls.objects.filter(user_name__name__icontains=profile_item)
@@ -71,3 +56,19 @@ class Image(models.Model):
     @classmethod
     def search_user(cls,user_item):
         pic = cls.objects.filter(name__icontains=user_item)
+
+
+class Rates(models.Model):
+    user_name = models.OneToOneField(User, on_delete=models.CASCADE,blank=True)
+    pic = models.ForeignKey(Image, on_delete=models.CASCADE,blank=True)
+    comment = models.TextField()
+
+    def save_comment(self,id):
+        self.save()
+
+    def get_comment_id(self,id):
+        comment = Comments.objects.filter(Image_id=id)
+        return comment
+
+    def __str__(self):
+        return self.user_name.comment

@@ -1,5 +1,6 @@
+# from django.http import HttpResponse,httpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Image,Profile
+from .models import Image,Profile,Rates
 from django.contrib.auth.decorators import login_required
 from .forms import Form,NewImageForm,UpdateProForm
 # Create your views here.
@@ -62,3 +63,16 @@ def editProfile(request):
     else:
         form = UpdateProForm()
     return render(request,'everything/pro_edit.html',{"test":form})
+
+def search(request):
+    if 'user_name' in request.GET and request.GET["user_name"]:
+        search_term = request.GET.get("user_name")
+        users = User.search_by_user_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'everything/search.html',{"message":message,"users": users})
+
+def users(request):
+    used = User.objects.all()
+    accounts = {'used':used}
+    return render(request,'profile.html',accounts)

@@ -10,7 +10,9 @@
             </div>
             <div class="col-md-4">
                 <h3 > {{user.username}} </h3> 
-                <p class="text-secondary"> Email: {{ user.email }}</p>             
+                <p class="text-secondary"> Email: {{ user.email }}</p>  
+                <p class="col-sm-3">following</p>
+                <p class="col-sm-3">followers</p>              
                 <p>Bio: {{user.profile.boi}}</p>
                 
                 
@@ -27,7 +29,7 @@
                 {% for pict in image_pic %}
                 <div class="col-md-3 col-md-4">
                 
-                    <img src="{{pict.project.url}}" class="img-responsive btn btn-succes" height="300px" width="300px" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
+                    <img src="{{pict.pic.url}}" class="img-responsive btn btn-succes" height="300px" width="300px" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
 
                     <!-- codes from Bootstrap  -->
                     <!-- Button trigger modal -->
@@ -38,7 +40,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <div class="modal-title" id="exampleModalLabel">
-                                        <img src="{{pict.project.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
+                                        <img src="{{pict.pic.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
                                         <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
                                     </div>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
