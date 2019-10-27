@@ -1,10 +1,13 @@
 from django import forms
-from .models import Projects,Profile
+from .models import Image,Profile
 
+class Form(forms.Form):
+    your_name = forms.CharField(label='First Name',max_length=30)
+    email = forms.EmailField(label='Email')
 
 class NewImageForm(forms.ModelForm):
     class Meta:
-        model = Projects
+        model = Image
         exclude = ['user_name', 'pub_date','rates','posting','views','profiles']
        
 class UpdateProForm(forms.ModelForm):
