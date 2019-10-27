@@ -27,7 +27,7 @@ class Profile(models.Model):
 
 class Image(models.Model):
     name = models.CharField(max_length =10)
-    description = models.TextField(max_length =20)
+    description = models.TextField(max_length =100)
     user_name = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
     pic = models.ImageField(upload_to='pictures/', null=True)
     comment = models.TextField(blank=True)

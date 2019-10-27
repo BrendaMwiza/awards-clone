@@ -5,28 +5,36 @@
 <div style="background-color: rgb(248, 246, 246);">
     <br>
     <div class="container">
-        {% for pict in image_pic %}
-        <div class="card" style="width: 50%;margin-left: 25%;">
-            <br>
-            <span style="font-family: cursive;"><img src="{{pict.profiles.pro_pic.url}}" style="height: 50px; width:50px;" class="rounded-circle profile-img">      {{pict.user_name}}</span>
-            <br>
-            <img src="{{pict.pic.url}}" alt="images" style="height: 350px;">
-            <div class="card-body">
-                <p><i class="fa fa-heart-o" style="color: rgb(165, 2, 2);font-size:36px;"></i>
-                    <i class="fa fa-comment-o" style="font-size:36px;"></i></p>
-                <p style="font-family: cursive;">Caption: {{pict.description}}</p>
-                <hr>
-    
-                {% for comments in comment %}
-                <p>{{comments.comment}}</p>
-                {% endfor %}
-    
-                <a href="#">comment</a>
-    
+        <div class="row">
+            {% for pict in image_pic %}
+            <div class="col-md-3 col-md-4">
+            
+                <img src="{{pict.pic.url}}" class="img-responsive btn btn-succes" height="300px" width="300px" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
+
+                <!-- codes from Bootstrap  -->
+                <!-- Button trigger modal -->
+
+                <!-- Modal -->
+                <div class="modal fade" id="{{pict.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title" id="exampleModalLabel">
+                                    <img src="{{pict.pic.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
+                                    <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
             </div>
+            
+            {% endfor %}
         </div>
-        <br><br>
-        {% endfor %}
         
     </div>
     
