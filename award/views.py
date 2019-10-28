@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import Form,NewImageForm,UpdateProForm
 # Create your views here.
 
-@login_required(login_url='/accounts/login/')
+
+
 def index(request):
     # date = dt.date.today()
     image_pic = Image.objects.all()
