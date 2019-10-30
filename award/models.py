@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     class Meta:
         db_table='profile'
-    pro_pic = models.ImageField(upload_to='profile/',blank=True,null=True)
+    pro_pic = models.ImageField(upload_to='profilePic/',blank=True,null=True)
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     boi = models.TextField(max_length=300,null=True,default="bio")
     follower = models.ManyToManyField(User,related_name="follower",blank=True)
