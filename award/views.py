@@ -46,6 +46,8 @@ def new_pic(request):
 def getProfile(request,users=None):
     user = request.user
     image_pic = Image.objects.filter(user_name=user)
+    user_name = request.user
+    profile = Profile.objects.filter(user_name=user_name).first()
     
     return render(request,'everything/profile.html',locals(),{"image_pic":image_pic})
 
