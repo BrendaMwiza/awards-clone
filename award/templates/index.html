@@ -1,19 +1,62 @@
 {%extends 'everything/base.html'%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/award.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Pacifico|Source+Serif+Pro&display=swap" rel="stylesheet">
 {%load bootstrap4 %}
 {% block content %}
-<div style="background-color: rgb(248, 246, 246);">
+<style>
+    .landing-page {
+        background-image: url(../static/images/award5.jpg);
+        height: 100vh;
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: 'Trochut', cursive;
+    }
+
+    .button2{
+        border-radius: 50%;
+        margin-top: 20%;
+        margin-left: 5%;
+        background-color: transparent;
+        color: black;
+        background-repeat: repeat;
+    }
+
+    footer{
+        text-align: center;
+        color: azure;
+    }
+
+    .card{
+        background-color: rgb(3, 80, 83);
+        color: azure;
+        margin-top: 4%;
+    }
+
+</style>
+<div style="background-color: rgb(4, 127, 131);">
+    <!-- code from codepen  -->
+    <div class="landing-page">
+        <br><br><br><br><br><br><br><br><br>
+        <h1 class="landing-page-heading text-center" style="color: rgb(24, 26, 26);">We Provide Great Projects.</h1>
+        <a href="https://iad-lab.ch" type="button" class="button2 btn btn-info" >Visit site</a>
+    </div>
+    
+    <div class="bg-projects">
+    <div class="container" >
+    <div class="row project-row">
     <br>
+    <br><br>
     <div class="container">
         <div class="row">
             {% for pict in image_pic %}
             <div class="col-md-3 col-md-4">
-                <div class="card" style="width: 400px;">
+                <div class="card" style="width: 350px;">
                     <img src="{{pict.pic.url}}" class="img-responsive btn btn-succes " height="300px" width="100%" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
-                    <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
+                    <p style="color: azure;font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
                     <p>From Kigali</p>
                     <hr>
-                    <span style="font-family: cursive;"><img src="{{pict.profiles.pro_pic.url}}" style="height: 50px; width:50px;" class="rounded-circle profile-img">By {{pict.user_name}}</span>
+                    <a style="font-family: cursive; color: azure;" href="{% url 'profile' %}" ><img src="{{pict.profiles.pro_pic.url}}" style="height: 50px; width:50px;" class="rounded-circle profile-img">By {{pict.user_name}}</a>
                 </div>
                 <!-- codes from Bootstrap  -->
                 <!-- Button trigger modal -->
@@ -26,7 +69,7 @@
                                 <div class="modal-title" id="exampleModalLabel">
                                     <img src="{{pict.pic.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
                                     <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
-                                    <a href="https://instapicscom.herokuapp.com" type="button" class="btn danger">Visit Site</a>
+                                    <a href="https://instapicscom.herokuapp.com" type="button" class="btn danger">Visit Site/Rate</a>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -41,7 +84,12 @@
             
             {% endfor %}
         </div>
-        
+        <hr>
+        <footer>
+            <p>Webpage by: Brenda Mwiza</p>
+            <p>Contact information: <a style="color: azure;" href="mailto:brendabrizy@gmail.com">
+            brendabrizy@gmail.com</a>.</p>
+        </footer>
     </div>
     
     {% endblock %}
