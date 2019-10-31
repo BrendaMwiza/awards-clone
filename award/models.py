@@ -48,9 +48,11 @@ class Image(models.Model):
         pic = cls.objects.get(PrimaryKey=id)
         return pic
 
+
     @classmethod
-    def search_user(cls,user_item):
-        pic = cls.objects.filter(name__icontains=user_item)
+    def search_by_pic(cls,search_term):
+        image = cls.objects.filter(pic__name__icontains=search_term)
+        return image
 
 
 class Rates(models.Model):

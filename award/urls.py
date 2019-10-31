@@ -14,7 +14,8 @@ urlpatterns=[
     # url(r'^myprofile/$',views.profiled,name="profiled"),
     # url(r'^point/$',views.point,name="point"),
     url(r'^api/profile/$',views.ProfileList.as_view()),
-    url(r'^api/image/$',views.ImageList.as_view())
+    url(r'^api/image/$',views.ImageList.as_view()),
+    url(r'^search/',views.rating,name="search"),
 ]
 
 if settings.DEBUG:

@@ -72,12 +72,16 @@ def editProfile(request):
     return render(request,'everything/pro_edit.html',{"test":form})
 
 def search(request):
-    if 'user_name' in request.GET and request.GET["user_name"]:
-        search_term = request.GET.get("user_name")
-        users = User.search_by_user_name(search_term)
+    if 'picture' in request.GET and request.GET["picture"]:
+        search_term = request.GET.get("picture")
+        pictures = Image.search_by_ciro(search_term)
         message = f"{search_term}"
 
-        return render(request, 'everything/search.html',{"message":message,"users": users})
+        return render(request, 'everything/search.html',{"message":message,"pictures": pictures})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'everything/search.html',{"message":message, "pictures": pictures})
 
 # rating code from nyota245 github
 @login_required

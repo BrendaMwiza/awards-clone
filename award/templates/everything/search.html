@@ -1,0 +1,52 @@
+{%extends 'everything/base.html'%} 
+{% block content %}
+<div class="container" style="background-color: rgb(39, 1, 1);">
+
+  <br><br>
+  <div class="row ">
+    <!-- codes from Bootstrap  -->
+    <!-- Button trigger modal -->
+
+  {% if pictures %}
+  {% for pict in image_pic %}
+  <div class="col-md-3 col-md-4">
+      <div class="card" style="width: 350px;">
+          <img src="{{pict.pic.url}}" class="img-responsive btn btn-succes " height="300px" width="100%" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
+          <p style="color: azure;font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
+          <p>From Kigali</p>
+          <a href="{{pict.link}}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Visit Site</a>
+          <a href="{% url 'rates' %}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Rate Site</a>
+          <hr>
+          <a style="font-family: cursive; color: azure;" href="{% url 'profile' %}" ><img src="{{pict.profiles.pro_pic.url}}" style="height: 50px; width:50px;" class="rounded-circle profile-img">By {{pict.user_name}}</a>
+      </div>
+      <!-- codes from Bootstrap  -->
+      <!-- Button trigger modal -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="{{pict.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <div class="modal-title" id="exampleModalLabel">
+                          <img src="{{pict.pic.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
+                          <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
+                          <a href="{{pict.link}}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Visit Site</a>
+                          <a href="{% url 'rates' %}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Rate Site</a>
+
+                      </div>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br><br>
+  
+  </div>
+  
+  {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
