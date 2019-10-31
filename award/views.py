@@ -4,6 +4,9 @@ from .models import Image,Profile,Rates
 from django.contrib.auth.decorators import login_required
 from .forms import Form,NewImageForm,UpdateProForm,RateForm
 from django.db.models import Avg
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ImageSerializer
 # Create your views here.
 
 
@@ -167,3 +170,32 @@ def AjaxRating(request):
             data2={"design":design,"usability":usability,"content":content,"uid":current_user_id,"success":"Successfuly updated the rating to this project"}
             data = {'success': 'You have successfuly rated the project'}
             return JsonResponse(data2)
+
+# @login_required
+# def profiled(request):
+#     current_user = request.user
+#     context = {
+#         "current_user":current_user
+#     }
+#     return render(request,"profile.html",context)
+
+
+# 
+# def point(request):
+#     title = "API point"
+#     context = {
+#         "title":title
+#     }
+#     return render(request,"point.html",context)
+    
+class ImageList(APIView):
+    def get(self,request,format=None):
+        projects = Image.objects.all()
+        serializers = ImageSerializer(projects,many=True)
+        return Response(serializers.data)
+
+class ProfileList(APIView):
+    def get(self,request,format=None):
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles,many=True)
+        return Response(serializer.data)
