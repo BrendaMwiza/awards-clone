@@ -7,10 +7,8 @@ class Profile(models.Model):
     class Meta:
         db_table='profile'
     pro_pic = models.ImageField(upload_to='profilePic/',blank=True,null=True)
-    user_name = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_name = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     boi = models.TextField(max_length=300,null=True,default="bio")
-    follower = models.ManyToManyField(User,related_name="follower",blank=True)
-    following = models.ManyToManyField(User,related_name="following",blank=True)
 
     def save_profile(self):
         self.save()

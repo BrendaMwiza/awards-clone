@@ -86,9 +86,9 @@ def rating(request):
     Function to display single Project and rate it
     '''
     current_user = request.user
-    project = Image.objects.filter().first()
+    projects = Image.objects.filter().first()
     title = "Rating"
-    project_rating = Rates.objects.filter(pic=project).order_by("pk")
+    project_rating = Rates.objects.filter(pic=projects).order_by("pk")
     current_user = request.user.id
     project_rated = Rates.objects.filter(user_name=current_user)
 
@@ -126,7 +126,7 @@ def rating(request):
     form = RateForm()
 
     context = {
-        "project":project,
+        "projects":projects,
         "form":form,
         "project_rating":project_rating,
         "designav":designav,
@@ -139,55 +139,9 @@ def rating(request):
 
     return render(request,"rates.html",context)
 
-@login_required
-def AjaxRating(request):
-    '''
-    Ajax function for uploading user rating
-    '''
-
-    project = Image.objects.get()
-    current_user_id = request.user.id
-    current_user = request.user.username
-    project_rated = Rates.objects.filter(user=current_user_id)
-
-    if request.method == "POST":
-        if project_rated == None:
-            design = request.POST.get("design")
-            usability = request.POST.get("usability")
-            content = request.POST.get("content")
-            rating = Rates(design=design,usability=usability,content=content,project=project,user=request.user)
-            rating.save()
-            data2={"design":design,"usability":usability,"content":content,"uid":current_user_id,"user":current_user,"success":"Successfuly rated"}
-            data = {'success': 'You have successfuly rated the project'}
-            return JsonResponse(data2)
-        else:
-            project_rated.delete()
-            design = request.POST.get("design")
-            usability = request.POST.get("usability")
-            content = request.POST.get("content")
-            rating = Rates(design=design,usability=usability,content=content,project=project,user=request.user)
-            rating.save()
-            data2={"design":design,"usability":usability,"content":content,"uid":current_user_id,"success":"Successfuly updated the rating to this project"}
-            data = {'success': 'You have successfuly rated the project'}
-            return JsonResponse(data2)
-
-# @login_required
-# def profiled(request):
-#     current_user = request.user
-#     context = {
-#         "current_user":current_user
-#     }
-#     return render(request,"profile.html",context)
 
 
-# 
-# def point(request):
-#     title = "API point"
-#     context = {
-#         "title":title
-#     }
-#     return render(request,"point.html",context)
-    
+
 class ImageList(APIView):
     def get(self,request,format=None):
         projects = Image.objects.all()

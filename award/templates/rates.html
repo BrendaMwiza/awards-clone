@@ -36,6 +36,7 @@
 </style>
 
 <div class="rating-page above"style=" height: 100vh;background-attachment: fixed;">
+    
     <div id="overlay">
         <div class="container-fluid">
             <div class="container spinners">
@@ -60,18 +61,20 @@
             </div>
         </div>
     </div>
+    
 </div>
 </div>
 </div>
 <div class="container-fluid" style="text-align: center;font-family:cursive;">
-
+   
     <h3 class="project-details-heading">Project Details</h3>
-    <p>{{ project.description }}</p><br>
+    <p>{{ projects.description }}</p><br>
 
     <h3 class="project-details-heading">Visit The Site</h3>
-    <a href="{{pic.link}}">Visit Site</a><br>
+    <a href="{{projects.link}}">Visit Site</a><br>
     <br><br>
     <h3 class="project-details-heading">Rate this site</h3>
+   
     <div class="row">
         <!-- <div class="col-md-4"></div> -->
         <div class="col-md-4">
