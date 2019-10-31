@@ -55,6 +55,8 @@
                     <img src="{{pict.pic.url}}" class="img-responsive btn btn-succes " height="300px" width="100%" alt="Image" type="button" data-toggle="modal" data-target="#{{pict.id}}" >
                     <p style="color: azure;font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
                     <p>From Kigali</p>
+                    <a href="https://instapicscom.herokuapp.com" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Visit Site</a>
+                    <a href="{% url 'rates' %}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Rate Site</a>
                     <hr>
                     <a style="font-family: cursive; color: azure;" href="{% url 'profile' %}" ><img src="{{pict.profiles.pro_pic.url}}" style="height: 50px; width:50px;" class="rounded-circle profile-img">By {{pict.user_name}}</a>
                 </div>
@@ -70,7 +72,7 @@
                                     <img src="{{pict.pic.url}}" class="img-responsive" height="300px" width="400px" alt="Image"> 
                                     <p style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">{{ pict.description }}</p>
                                     <a href="https://instapicscom.herokuapp.com" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Visit Site</a>
-                                    <a href="https://instapicscom.herokuapp.com" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Rate Site</a>
+                                    <a href="{% url 'rates' %}" type="button" class="btn btn danger" style="color: rgb(34, 33, 33);font-family: 'Pacifico', cursive;">Rate Site</a>
 
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

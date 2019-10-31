@@ -2,7 +2,8 @@
 from django.shortcuts import render,redirect
 from .models import Image,Profile,Rates
 from django.contrib.auth.decorators import login_required
-from .forms import Form,NewImageForm,UpdateProForm
+from .forms import Form,NewImageForm,UpdateProForm,RateForm
+from django.db.models import Avg
 # Create your views here.
 
 
@@ -75,7 +76,94 @@ def search(request):
 
         return render(request, 'everything/search.html',{"message":message,"users": users})
 
-def users(request):
-    used = User.objects.all()
-    accounts = {'used':used}
-    return render(request,'profile.html',accounts)
+# rating code from nyota245 github
+@login_required
+def rating(request):
+    '''
+    Function to display single Project and rate it
+    '''
+    current_user = request.user
+    project = Image.objects.filter().first()
+    title = "Rating"
+    project_rating = Rates.objects.filter(pic=project).order_by("pk")
+    current_user = request.user.id
+    project_rated = Rates.objects.filter(user_name=current_user)
+
+
+    design_mean_rating = []
+    for d_rating in project_rating:
+        design_mean_rating.append(d_rating.design)
+    try:
+        designav = sum(design_mean_rating)/len(design_mean_rating)
+        designper = design_average * 10
+    except ZeroDivisionError:
+        designav = "0"
+        designper = 0
+
+    usability_mean_rating = []
+    for u_rating in project_rating:
+        usability_mean_rating.append(u_rating.usability)
+    try:
+        usabilityav = sum(usability_mean_rating)/len(usability_mean_rating)
+        usabilityper = usability_average *10
+    except ZeroDivisionError:
+        usabilityav = "0"
+        usabilityper = 0
+    
+    content_mean_rating = []
+    for c_rating in project_rating:
+        content_mean_rating.append(c_rating.content)
+    try:
+        contentav = sum(content_mean_rating)/len(content_mean_rating)
+        contentper = content_average * 10
+    except ZeroDivisionError:
+        contentav = "0"
+        contentper = 0
+
+    form = RateForm()
+
+    context = {
+        "project":project,
+        "form":form,
+        "project_rating":project_rating,
+        "designav":designav,
+        "contentav":contentav,
+        "usabilityav":usabilityav,
+        "usabilityper":usabilityper,
+        "contentper":contentper,
+        "designper":designper
+    }
+
+    return render(request,"rates.html",context)
+
+@login_required
+def AjaxRating(request):
+    '''
+    Ajax function for uploading user rating
+    '''
+
+    project = Image.objects.get()
+    current_user_id = request.user.id
+    current_user = request.user.username
+    project_rated = Rates.objects.filter(user=current_user_id)
+
+    if request.method == "POST":
+        if project_rated == None:
+            design = request.POST.get("design")
+            usability = request.POST.get("usability")
+            content = request.POST.get("content")
+            rating = Rates(design=design,usability=usability,content=content,project=project,user=request.user)
+            rating.save()
+            data2={"design":design,"usability":usability,"content":content,"uid":current_user_id,"user":current_user,"success":"Successfuly rated"}
+            data = {'success': 'You have successfuly rated the project'}
+            return JsonResponse(data2)
+        else:
+            project_rated.delete()
+            design = request.POST.get("design")
+            usability = request.POST.get("usability")
+            content = request.POST.get("content")
+            rating = Rates(design=design,usability=usability,content=content,project=project,user=request.user)
+            rating.save()
+            data2={"design":design,"usability":usability,"content":content,"uid":current_user_id,"success":"Successfuly updated the rating to this project"}
+            data = {'success': 'You have successfuly rated the project'}
+            return JsonResponse(data2)

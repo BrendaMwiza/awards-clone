@@ -30,10 +30,7 @@ class Image(models.Model):
     description = models.TextField(max_length =100)
     user_name = models.ForeignKey(User,on_delete=models.CASCADE, blank=True)
     pic = models.ImageField(upload_to='pictures/', null=True)
-    comment = models.TextField(blank=True)
-    likes = models.IntegerField(default=0)
-    pub_date = models.DateTimeField(auto_now_add=True, null=True)
-    posting = HTMLField(null=True)
+    link = models.CharField(max_length=255)
     profiles = models.ForeignKey(Profile,null=True)
 
     def save_pic(self):
@@ -59,16 +56,14 @@ class Image(models.Model):
 
 
 class Rates(models.Model):
-    user_name = models.OneToOneField(User, on_delete=models.CASCADE,blank=True)
+    user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     pic = models.ForeignKey(Image, on_delete=models.CASCADE,blank=True)
-    comment = models.TextField()
 
-    def save_comment(self,id):
-        self.save()
-
-    def get_comment_id(self,id):
-        comment = Comments.objects.filter(Image_id=id)
-        return comment
+    # code from Django ratings on google
+    design = models.IntegerField(choices=[(i,i) for i in range(1,11)], null=True)
+    usability = models.IntegerField(choices=[(i,i) for i in range(1,11)], null=True)
+    content = models.IntegerField(choices=[(i,i) for i in range(1,11)], null=True)
+     
 
     def __str__(self):
-        return self.user_name.comment
+        return f'{self.user.username} {self.pic.name} Rating'

@@ -8,7 +8,8 @@ urlpatterns=[
     url(r'^$',views.index,name ='welcome'),
     url(r'^new/picture$', views.new_pic, name='addPic'),
     url(r'^profile/', views.getProfile, name='profile'),
-    url(r'^editprofile',views.editProfile, name='editProfile')
+    url(r'^editprofile',views.editProfile, name='editProfile'),
+    url(r'^rating/',views.rating,name="rates"),
 ]
 
 if settings.DEBUG:
