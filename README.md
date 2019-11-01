@@ -52,6 +52,10 @@ There are no known bugs if any dont hesitate to contact me.
 4. Bootstrap
 5. Css
 
+## APIs for Profile and Projects
+1. Profile: http://127.0.0.1:8000/api/profile/
+2. Project: http://127.0.0.1:8000/api/image
+
 ## Support and contact details
 brendabrizy@gmail.com
 
